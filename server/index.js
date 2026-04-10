@@ -21,8 +21,8 @@ connectDB();
 app.use(cors({
   origin: [
     'https://future-fs-2.vercel.app',    // your Vercel frontend
-    'http://localhost:3000',             // local React dev
-    'http://localhost:3001'              // alternative local port
+    'http://localhost:3000',
+    'http://localhost:3001'
   ],
   credentials: true,
 }));
@@ -40,5 +40,11 @@ app.use('/api/followups', followupRoutes);
 // Error handling
 app.use(errorHandler);
 
-// Export for Vercel / Render (no app.listen)
+// ✅ Listen on a port (required for Render)
+const PORT = process.env.PORT || 5002;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
+// Also export for Vercel (optional, harmless)
 module.exports = app;
