@@ -1,20 +1,27 @@
 import axios from 'axios';
 
-// In production (Vercel), use relative path /api
-// In development, use local backend
-const API_URL = import.meta.env.PROD ? '/api' : 'http://localhost:5002';
+// Use Render backend in production, local backend in development
+const API_URL = window.location.hostname === 'localhost'
+  ? 'http://localhost:5002/api'
+  : 'https://future-fs-02-hi8b.onrender.com/api';
 
 const api = axios.create({
   baseURL: API_URL,
-  headers: { 'Content-Type': 'application/json' },
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+// Request interceptor to add token
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 export default api;
