@@ -17,8 +17,15 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
-// Middleware
-app.use(cors());
+// Middleware - Allow specific origins
+app.use(cors({
+  origin: [
+    'https://future-fs-2.vercel.app',    // your Vercel frontend
+    'http://localhost:3000',             // local React dev
+    'http://localhost:3001'              // alternative local port
+  ],
+  credentials: true,
+}));
 app.use(express.json());
 app.use(morgan('dev'));
 
@@ -33,5 +40,5 @@ app.use('/api/followups', followupRoutes);
 // Error handling
 app.use(errorHandler);
 
-// ✅ Export for Vercel (no app.listen)
+// Export for Vercel / Render (no app.listen)
 module.exports = app;
