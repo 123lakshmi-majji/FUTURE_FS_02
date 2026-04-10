@@ -17,15 +17,8 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
-// Middleware - Allow specific origins
-app.use(cors({
-  origin: [
-    'https://future-fs-2.vercel.app',    // your Vercel frontend
-    'http://localhost:3000',
-    'http://localhost:3001'
-  ],
-  credentials: true,
-}));
+// Middleware - Allow all origins (fixes CORS for any frontend)
+app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
@@ -40,7 +33,7 @@ app.use('/api/followups', followupRoutes);
 // Error handling
 app.use(errorHandler);
 
-// ✅ Listen on a port (required for Render)
+// Listen on a port (required for Render)
 const PORT = process.env.PORT || 5002;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
