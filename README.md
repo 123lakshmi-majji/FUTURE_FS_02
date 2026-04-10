@@ -4,7 +4,7 @@ A full-stack Customer Relationship Management (CRM) application built using the 
 
 🚀 Live Demo
 
-🔗 [Add your deployed link here]
+🔗 https://drive.google.com/file/d/1GciXksia6c76Fv0MXHvAQ2rkD-KCV8JK/view?usp=drive_link
 
 📂 GitHub Repository
 
