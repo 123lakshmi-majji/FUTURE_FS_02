@@ -1,3 +1,4 @@
+// server/index.js
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -29,10 +30,8 @@ app.use('/api/activities', activityRoutes);
 app.use('/api/export', exportRoutes);
 app.use('/api/followups', followupRoutes);
 
-// Error handling middleware
+// Error handling
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// ✅ Export for Vercel (no app.listen)
+module.exports = app;
